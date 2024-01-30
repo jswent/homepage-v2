@@ -1,0 +1,59 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'James Swent',
+  date: '2023-12-14',
+  title: 'How I finally switched to Neovim as my main editor',
+  description:
+    'If you’re entrenched in the world of coding, you’re likely familiar with the ongoing quest for the perfect text editor. It’s a journey I’ve been on for a while, and today, I’m excited to share that I’ve officially switched to Neovim as my primary editor.',
+  readtime: '4 minute',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+If you’re entrenched in the world of coding, you’re likely familiar with the ongoing quest for the perfect text editor. It’s a journey I’ve been on for a while, and today, I’m excited to share that I’ve officially switched to Neovim as my primary editor.
+
+## The rise of Neovim
+
+In the past years since it's initial debut, Neovim has generated a strong following among power users. Traditionally Vim, with it's long as storied history, has been the go-to-editor for many. However, the emergence of Neovim has marked a significant evolution of the terminal-based editor and finally created a suitable competitor to IDEs and bloated electron-based editors.
+
+## Why Neovim stands out
+
+How has Neovim managed to convert an audience who has clung to their precious Vim for the better part of 3 decades, you may ask? For starters, it's integration with Lua - a powerful and lightweight functional programming language - makes it incredibly extensible and customizable, introducing an entire new audience of developers. The built-in LSP and other incredibly useful APIs created by the Neovim team has massively simplified development and allowed for much finer control of internal processes.
+
+These features have allowed the Neovim plugin community to explode over the past years, introducing a plethora of increasingly complex additions - rivaling, and in some cases surpassing, the most powerful IDEs and text editors.
+
+Plus, it's portability is unmatched - you can load it up on any Unix-based terminal, be it headless or otherwise, and it will just work. Easily replicating your desired environment.
+
+## My initial foray into building an IDE layer
+
+In my initial enthusiasm, I dove headfirst into building my own IDE layer for Neovim (which you can find [here](https://github.com/jswent/SVim)). While this endeavor was intellectually stimulating and gave me an understanding of how it all works under the hood, it proved too difficult to maintain for production work. Every time I ran a `:PackerSync` it felt like a gamble – would my entire config break this time?
+
+This is not a problem - when you have hours to debug and re-implement your functionality, however in a work environment this is not feasible. More often than not, I found myself reverting back to the familiar comfort of VS Code.
+
+## Discovering LazyVim: A turning point
+
+Enter LazyVim, an extensible Neovim framework built around the [lazy.nvim](https://github.com/folke/lazy.nvim) plugin manager - both built by [folke](https://github.com/folke). A renowned member of the Neovim community, his work includes many fundamental plugins such as [which-key.nvim](https://github.com/folke/which-key.nvim), [trouble.nvim](https://github.com/folke/trouble.nvim), and of course [tokyonight.nvim](https://github.com/folke/tokyonight.nvim) - arguably the most popular colorscheme.
+
+I've generally steered clear of prebuilt configs, as they are usually restrictive, inefficient, and cumbersome, but LazyVim is different. It's designed to be a foundation to build upon, not a rigid, one-size-fits-all solution. The activity of Folke and his team was also a key factor in my decision, as they carefully curate each plugin version used in source and perform rigorous testing. Equally important, however, is the involvement of the community in extending LazyVim's native plugin extensions and features.
+
+This collaborative model ensures that LazyVim remains a reliable and efficient tool, with updates that enhance its functionality without disrupting user experience. For more detailed information, you can visit [LazyVim's official website](https://lazyvim.org).
+
+## One word of advice: Always have a backup
+
+As with any system, perfection is unattainable. If you're in a work environment, always have a backup editor prepared in case of emergency. I've yet to experience any downtime, but surprises can always happen. You never want to be caught with your pants down.
+
+## To switch or not to switch?
+
+So, should you switch to Neovim or LazyVim? If you're a terminal junkie like me who loves customizing every aspect of your development environment and wish to be free of the mouse, then absolutely. But if you're not familiar with Vim keybinds or prefer a more straightforward setup, sticking with VS Code might be your best bet. The Vim extensions available for VS Code and JetBrains are excellent starting points for the Vim-curious.
+
+## Join the conversation!
+
+I'm always eager to hear from fellow tech enthusiats. If you've embarked on a similar journey or are completing the switch to Neovim or LazyVim, reach out!
+
+Switching to Neovim, and particularly to LazyVim, has been a journey of trial, error, and, ultimately, success. Even over the past 3 years the Neovim ecosystem has evolved dramatically, and it isn't stopping anytime soon. It's a testament to the vibrant community of developers continually pushing the boundaries of what's possible in our tools and workflows.
