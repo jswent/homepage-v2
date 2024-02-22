@@ -3,6 +3,7 @@ import { Card } from '@/components/Card'
 import { Container } from '@/components/Container'
 import {
   ClientForm,
+  ClientFormError,
   ClientFormInput,
   ClientFormSubmitButton,
 } from '@/components/NewsletterForm'
@@ -51,15 +52,18 @@ function Article({ article }: { article: ArticleWithSlug }) {
 function Registration() {
   return (
     <>
-      <ClientForm className="mx-auto mt-8 flex max-w-lg">
-        <ClientFormInput className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 sm:text-sm dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-blue-400 dark:focus:ring-blue-400/10" />
-        <ClientFormSubmitButton
-          type="submit"
-          variant="highlight"
-          className="ml-4 flex-none px-8"
-        >
-          Join
-        </ClientFormSubmitButton>
+      <ClientForm className="mx-auto mt-8 max-w-lg">
+        <div className="flex">
+          <ClientFormInput className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 sm:text-sm dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-blue-400 dark:focus:ring-blue-400/10" />
+          <ClientFormSubmitButton
+            type="submit"
+            variant="highlight"
+            className="ml-4 flex-none px-8"
+          >
+            Join
+          </ClientFormSubmitButton>
+        </div>
+        <ClientFormError className="mt-4 text-center" />
       </ClientForm>
       <p className="mt-4 text-center font-light text-zinc-600 dark:text-zinc-500">
         I will never send you promotions or sell your information. Ever.
@@ -84,6 +88,7 @@ function RegistrationBox() {
           Join
         </ClientFormSubmitButton>
       </div>
+      <ClientFormError className="mt-4" />
     </ClientForm>
   )
 }

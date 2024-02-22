@@ -10,7 +10,8 @@ import {
   useState,
 } from 'react'
 import { Button } from './Button'
-import type { ButtonProps, variantStyles } from './Button'
+import { variantStyles } from './Button'
+import clsx from 'clsx'
 
 type ClientFormProps = HTMLProps<HTMLFormElement>
 
@@ -18,17 +19,12 @@ const FormContext = createContext<{ formState: number }>({ formState: 0 })
 
 export const ClientForm = ({ children, ...props }: ClientFormProps) => {
   const router = useRouter()
-  const [formState, setFormState] = useState(3)
+  const [formState, setFormState] = useState(0)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const formData = new FormData(event.target as HTMLFormElement)
-    console.log('target', event.target as HTMLFormElement)
-    console.log(...formData)
-    for (var entry in formData.keys()) {
-      console.log(entry)
-    }
 
     try {
       setFormState(1)
@@ -46,8 +42,7 @@ export const ClientForm = ({ children, ...props }: ClientFormProps) => {
       } else {
         const res = await response.json()
         if (res.data == 'success') {
-          setFormState(2)
-          router.push('/thank-you')
+          router.push('/thank-you?status=subscription-confirmed')
         } else {
           setFormState(3)
         }
@@ -122,5 +117,19 @@ export const ClientFormSubmitButton = ({
         </div>
       )}
     </Button>
+  )
+}
+
+export const ClientFormError = ({
+  className,
+  ...props
+}: HTMLProps<HTMLDivElement>) => {
+  const { formState } = useContext(FormContext)
+  return formState == 3 ? (
+    <div {...props} className={clsx('text-red-500', className)}>
+      An error occurred. Please try again or come back later.
+    </div>
+  ) : (
+    <></>
   )
 }

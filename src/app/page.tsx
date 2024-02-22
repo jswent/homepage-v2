@@ -20,6 +20,7 @@ import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/formatDate'
 import {
   ClientForm,
+  ClientFormError,
   ClientFormInput,
   ClientFormSubmitButton,
 } from '@/components/NewsletterForm'
@@ -127,6 +128,7 @@ function Newsletter() {
           Join
         </ClientFormSubmitButton>
       </div>
+      <ClientFormError className="mt-4" />
     </ClientForm>
   )
 }
