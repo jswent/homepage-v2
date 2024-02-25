@@ -13,13 +13,21 @@ import { Button } from './Button'
 import { variantStyles } from './Button'
 import clsx from 'clsx'
 
-type ClientFormProps = HTMLProps<HTMLFormElement>
+enum FormState {
+  READY,
+  LOADING,
+  ERR,
+}
 
-const FormContext = createContext<{ formState: number }>({ formState: 0 })
+const FormContext = createContext<{ formState: FormState }>({
+  formState: FormState.READY,
+})
+
+type ClientFormProps = HTMLProps<HTMLFormElement>
 
 export const ClientForm = ({ children, ...props }: ClientFormProps) => {
   const router = useRouter()
-  const [formState, setFormState] = useState(0)
+  const [formState, setFormState] = useState(FormState.READY)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -27,7 +35,7 @@ export const ClientForm = ({ children, ...props }: ClientFormProps) => {
     const formData = new FormData(event.target as HTMLFormElement)
 
     try {
-      setFormState(1)
+      setFormState(FormState.LOADING)
       const response = await fetch('/api/newsletterRegistration', {
         method: 'POST',
         mode: 'cors',
@@ -38,17 +46,17 @@ export const ClientForm = ({ children, ...props }: ClientFormProps) => {
       })
 
       if (response.status == 403) {
-        setFormState(4)
+        setFormState(FormState.ERR)
       } else {
         const res = await response.json()
         if (res.data == 'success') {
           router.push('/thank-you?status=subscription-confirmed')
         } else {
-          setFormState(3)
+          setFormState(FormState.ERR)
         }
       }
     } catch (err) {
-      setFormState(3)
+      setFormState(FormState.ERR)
       console.error(err)
     }
   }
@@ -72,7 +80,7 @@ export const ClientFormInput = (props: HTMLProps<HTMLInputElement>) => {
       placeholder="Email address"
       aria-label="Email address"
       required
-      disabled={formState == 1}
+      disabled={formState == FormState.LOADING}
     />
   )
 }
@@ -87,8 +95,8 @@ export const ClientFormSubmitButton = ({
 }: ClientFormSubmitButtonProps) => {
   const { formState } = useContext(FormContext)
   return (
-    <Button {...props} type="submit" disabled={formState == 1}>
-      {formState != 1 ? (
+    <Button {...props} type="submit" disabled={formState == FormState.LOADING}>
+      {formState != FormState.LOADING ? (
         <div className="w-7">{children}</div>
       ) : (
         <div className="w-7">
@@ -125,7 +133,7 @@ export const ClientFormError = ({
   ...props
 }: HTMLProps<HTMLDivElement>) => {
   const { formState } = useContext(FormContext)
-  return formState == 3 ? (
+  return formState == FormState.ERR ? (
     <div {...props} className={clsx('text-red-500', className)}>
       An error occurred. Please try again or come back later.
     </div>
