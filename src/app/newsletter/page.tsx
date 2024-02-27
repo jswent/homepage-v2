@@ -1,6 +1,12 @@
 import { Button } from '@/components/Button'
 import { Card } from '@/components/Card'
 import { Container } from '@/components/Container'
+import {
+  ClientForm,
+  ClientFormError,
+  ClientFormInput,
+  ClientFormSubmitButton,
+} from '@/components/NewsletterForm'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/formatDate'
 import { type Metadata } from 'next'
@@ -46,22 +52,19 @@ function Article({ article }: { article: ArticleWithSlug }) {
 function Registration() {
   return (
     <>
-      <form className="mx-auto mt-8 flex max-w-lg">
-        <input
-          type="email"
-          placeholder="Email address"
-          aria-label="Email address"
-          required
-          className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 sm:text-sm dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-blue-400 dark:focus:ring-blue-400/10"
-        />
-        <Button
-          type="submit"
-          variant="highlight"
-          className="ml-4 flex-none px-8"
-        >
-          Join
-        </Button>
-      </form>
+      <ClientForm className="mx-auto mt-8 max-w-lg">
+        <div className="flex">
+          <ClientFormInput className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 sm:text-sm dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-blue-400 dark:focus:ring-blue-400/10" />
+          <ClientFormSubmitButton
+            type="submit"
+            variant="highlight"
+            className="ml-4 flex-none px-8"
+          >
+            Join
+          </ClientFormSubmitButton>
+        </div>
+        <ClientFormError className="mt-4 text-center" />
+      </ClientForm>
       <p className="mt-4 text-center font-light text-zinc-600 dark:text-zinc-500">
         I will never send you promotions or sell your information. Ever.
       </p>
@@ -71,10 +74,7 @@ function Registration() {
 
 function RegistrationBox() {
   return (
-    <form
-      action="/thank-you"
-      className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
-    >
+    <ClientForm className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <MailIcon className="h-6 w-6 flex-none" />
         <span className="ml-3">Stay up to date</span>
@@ -83,18 +83,13 @@ function RegistrationBox() {
         Get notified when I publish something new, and unsubscribe at any time.
       </p>
       <div className="mt-6 flex">
-        <input
-          type="email"
-          placeholder="Email address"
-          aria-label="Email address"
-          required
-          className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 sm:text-sm dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-blue-400 dark:focus:ring-blue-400/10"
-        />
-        <Button type="submit" className="ml-4 flex-none">
+        <ClientFormInput className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 sm:text-sm dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-blue-400 dark:focus:ring-blue-400/10" />
+        <ClientFormSubmitButton className="ml-4 flex-none">
           Join
-        </Button>
+        </ClientFormSubmitButton>
       </div>
-    </form>
+      <ClientFormError className="mt-4" />
+    </ClientForm>
   )
 }
 

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import clsx from 'clsx'
 
-const variantStyles = {
+export const variantStyles = {
   primary:
     'bg-zinc-800 font-semibold text-zinc-100 hover:bg-zinc-700 active:bg-zinc-800 active:text-zinc-100/70 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:active:bg-zinc-700 dark:active:text-zinc-100/70',
   secondary:
@@ -10,7 +10,7 @@ const variantStyles = {
     'bg-blue-500 font-semibold text-zinc-100 hover:bg-blue-400 active:bg-blue-500 active:text-zinc-100/70 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-600 dark:active:text-zinc-100/70',
 }
 
-type ButtonProps = {
+export type ButtonProps = {
   variant?: keyof typeof variantStyles
 } & (
   | (React.ComponentPropsWithoutRef<'button'> & { href?: undefined })
